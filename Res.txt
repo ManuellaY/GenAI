@@ -1,0 +1,191 @@
+(druggen) manuella@botswana:~/Documents/DrugGEN-masterr/DrugGEN-master$ python inference.py --submodel="DrugGEN"                     --inference_model="experiments/models/druggen_Afrocancer_cdk"                     --inf_smiles="data/smiles_unique_EANPDB.smi"                     --train_smiles="data/smiles_unique_NANPDB.smi"                     --train_drug_smiles="data/cdk2_train.smi"                     --sample_num=1000                     --max_atom=38
+<frozen importlib._bootstrap>:241: RuntimeWarning: to-Python converter for boost::shared_ptr<RDKit::FilterHierarchyMatcher> already registered; second conversion method ignored.
+Loaded existing encoders/decoders!
+Processing...
+Filtering SMILES: 100%|███████████████████| 1871/1871 [00:00<00:00, 3272.49it/s]
+Processing dataset: 100%|█████████████████| 1630/1630 [00:01<00:00, 1476.67it/s]
+Done!
+Generator(
+  (node_layers): Sequential(
+    (0): Linear(in_features=11, out_features=64, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=64, out_features=128, bias=True)
+    (3): ReLU()
+    (4): Dropout(p=0.0, inplace=False)
+  )
+  (edge_layers): Sequential(
+    (0): Linear(in_features=5, out_features=64, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=64, out_features=128, bias=True)
+    (3): ReLU()
+    (4): Dropout(p=0.0, inplace=False)
+  )
+  (TransformerEncoder): TransformerEncoder(
+    (Encoder_Blocks): ModuleList(
+      (0): Encoder_Block(
+        (ln1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): MHA(
+          (q): Linear(in_features=128, out_features=128, bias=True)
+          (k): Linear(in_features=128, out_features=128, bias=True)
+          (v): Linear(in_features=128, out_features=128, bias=True)
+          (e): Linear(in_features=128, out_features=128, bias=True)
+          (out_e): Linear(in_features=128, out_features=128, bias=True)
+          (out_n): Linear(in_features=128, out_features=128, bias=True)
+        )
+        (ln3): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (ln4): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=128, out_features=384, bias=True)
+          (act): ReLU()
+          (fc2): Linear(in_features=384, out_features=128, bias=True)
+          (droprateout): Dropout(p=0.0, inplace=False)
+        )
+        (mlp2): MLP(
+          (fc1): Linear(in_features=128, out_features=384, bias=True)
+          (act): ReLU()
+          (fc2): Linear(in_features=384, out_features=128, bias=True)
+          (droprateout): Dropout(p=0.0, inplace=False)
+        )
+        (ln5): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (ln6): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+  (readout_e): Linear(in_features=128, out_features=5, bias=True)
+  (readout_n): Linear(in_features=128, out_features=11, bias=True)
+  (softmax): Softmax(dim=-1)
+)
+G
+The number of parameters: 317840
+Loading the model...
+Inference mode for DrugGEN model started: 100%|▉| 996/1000 [00:06<00:00, 164.84iInference completed, starting metrics calculation.
+Inference mode for DrugGEN model started: 100%|█| 1000/1000 [00:17<00:00, 164.84Inference mode is lasted for 892.90 seconds
+Metrics calculation started using MOSES.
+Validity:  0.664 
+
+/home/manuella/anaconda3/envs/druggen/lib/python3.10/site-packages/numpy/core/fromnumeric.py:3432: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/manuella/anaconda3/envs/druggen/lib/python3.10/site-packages/numpy/core/_methods.py:190: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/manuella/anaconda3/envs/druggen/lib/python3.10/site-packages/numpy/core/_methods.py:265: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/home/manuella/anaconda3/envs/druggen/lib/python3.10/site-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/home/manuella/anaconda3/envs/druggen/lib/python3.10/site-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Uniqueness:  1.0 
+
+Novelty (Train):  1.0 
+
+Novelty (Inference):  1.0 
+
+Novelty (Real Inhibitors):  1.0 
+
+Average Length:  0.65 
+
+Mean Atom Type:  1.049 
+
+SNN (ChEMBL):  nan 
+
+SNN (Real Inhibitors):  nan 
+
+Internal Diversity:  nan 
+
+QED:  0.486 
+
+SA:  2.164 
+
+Metrics are calculated.
+Inference mode for DrugGEN model started: 100%|█| 1000/1000 [14:56<00:00,  1.12i
+(druggen) manuella@botswana:~/Documents/DrugGEN-masterr/DrugGEN-master$ python inference.py --submodel="DrugGEN"                     --inference_model="experiments/models/druggen_Afrocancer_cdk"                     --inf_smiles="data/chembl_test.smi"                     --train_smiles="data/smiles_unique_NANPDB.smi"                     --train_drug_smiles="data/cdk2_train.smi"                     --sample_num=1000                     --max_atom=38
+<frozen importlib._bootstrap>:241: RuntimeWarning: to-Python converter for boost::shared_ptr<RDKit::FilterHierarchyMatcher> already registered; second conversion method ignored.
+Loaded existing encoders/decoders!
+Processing...
+Filtering SMILES: 100%|███████████████| 159705/159705 [00:50<00:00, 3191.88it/s]
+Processing dataset: 100%|█████████████| 138519/138519 [01:56<00:00, 1190.22it/s]
+Done!
+Generator(
+  (node_layers): Sequential(
+    (0): Linear(in_features=11, out_features=64, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=64, out_features=128, bias=True)
+    (3): ReLU()
+    (4): Dropout(p=0.0, inplace=False)
+  )
+  (edge_layers): Sequential(
+    (0): Linear(in_features=5, out_features=64, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=64, out_features=128, bias=True)
+    (3): ReLU()
+    (4): Dropout(p=0.0, inplace=False)
+  )
+  (TransformerEncoder): TransformerEncoder(
+    (Encoder_Blocks): ModuleList(
+      (0): Encoder_Block(
+        (ln1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): MHA(
+          (q): Linear(in_features=128, out_features=128, bias=True)
+          (k): Linear(in_features=128, out_features=128, bias=True)
+          (v): Linear(in_features=128, out_features=128, bias=True)
+          (e): Linear(in_features=128, out_features=128, bias=True)
+          (out_e): Linear(in_features=128, out_features=128, bias=True)
+          (out_n): Linear(in_features=128, out_features=128, bias=True)
+        )
+        (ln3): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (ln4): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): MLP(
+          (fc1): Linear(in_features=128, out_features=384, bias=True)
+          (act): ReLU()
+          (fc2): Linear(in_features=384, out_features=128, bias=True)
+          (droprateout): Dropout(p=0.0, inplace=False)
+        )
+        (mlp2): MLP(
+          (fc1): Linear(in_features=128, out_features=384, bias=True)
+          (act): ReLU()
+          (fc2): Linear(in_features=384, out_features=128, bias=True)
+          (droprateout): Dropout(p=0.0, inplace=False)
+        )
+        (ln5): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (ln6): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+  (readout_e): Linear(in_features=128, out_features=5, bias=True)
+  (readout_n): Linear(in_features=128, out_features=11, bias=True)
+  (softmax): Softmax(dim=-1)
+)
+G
+The number of parameters: 317840
+Loading the model...
+Inference mode for DrugGEN model started: 100%|▉| 995/1000 [00:06<00:00, 153.14iInference completed, starting metrics calculation.
+Inference mode for DrugGEN model started: 100%|█| 1000/1000 [00:20<00:00, 153.14Inference mode is lasted for 923.84 seconds
+Metrics calculation started using MOSES.
+Validity:  0.914 
+
+Uniqueness:  1.0 
+
+Novelty (Train):  1.0 
+
+Novelty (Inference):  1.0 
+
+Novelty (Real Inhibitors):  1.0 
+
+Average Length:  0.703 
+
+Mean Atom Type:  1.394 
+
+SNN (ChEMBL):  0.242 
+
+SNN (Real Inhibitors):  0.203 
+
+Internal Diversity:  0.0 
+
+QED:  0.455 
+
+SA:  2.248 
+
+Metrics are calculated.
+Inference mode for DrugGEN model started: 100%|█| 1000/1000 [15:29<00:00,  1.08i
+(druggen) manuella@botswana:~/Documents/DrugGEN-masterr/DrugGEN-master$ 
+
+
